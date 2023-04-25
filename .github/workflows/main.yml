@@ -8,7 +8,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-        
+    
+    - name: Connexion au cluster kubernetes
+      run: |
+        mkdir ~/.kube/
+        echo -e "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          
     - name: SonarQube Installation
       run: |
         ls -la
