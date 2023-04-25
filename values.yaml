@@ -147,11 +147,40 @@ hostAliases: []
 #   - "example.com"
 #   - "www.example.com"
 
-readinessProbe: null
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  failureThreshold: 6
+  # Note that timeoutSeconds was not respected before Kubernetes 1.20 for exec probes
+  timeoutSeconds: 1
+  # If an ingress *path* other than the root (/) is defined, it should be reflected here
+  # A trailing "/" must be included
+  sonarWebContext: /
+  # sonarWebContext: /sonarqube/
 
-livenessProbe: null
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  failureThreshold: 6
+  # Note that timeoutSeconds was not respected before Kubernetes 1.20 for exec probes
+  timeoutSeconds: 1
+  # If an ingress *path* other than the root (/) is defined, it should be reflected here
+  # A trailing "/" must be included
+  sonarWebContext: /
+  # sonarWebContext: /sonarqube/
+  # If an ingress *path* is defined, it should be reflected here
+  # sonar.web.context: /sonarqube
 
-startupProbe: null
+startupProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 24
+  # Note that timeoutSeconds was not respected before Kubernetes 1.20 for exec probes
+  timeoutSeconds: 1
+  # If an ingress *path* other than the root (/) is defined, it should be reflected here
+  # A trailing "/" must be included
+  sonarWebContext: /
+  # sonarWebContext: /sonarqube/
 
 initContainers:
   # image: busybox:1.32
