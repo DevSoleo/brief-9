@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Connexion au cluster kubernetes
       run: |
@@ -15,9 +15,4 @@ jobs:
         echo -e "${{ secrets.KUBECONFIG }}" > ~/.kube/config
           
     - name: SonarQube Installation
-      run: |
-        ls -la
-        pwd
-        SONARQUBE_NODE=$(kubectl get nodes | awk '{print $1}' |  awk 'NR == 2 { print ; exit ;}')
-        kubectl taint nodes $SONARQUBE_NODE sonarqube=true:NoSchedule
-        kubectl label node $SONARQUBE_NODE sonarqube=true
+      run: kubectl get pods
