@@ -13,6 +13,7 @@ jobs:
       run: |
         mkdir ~/.kube/
         echo -e "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+        az aks get-credentials --resource-group sq_noa_test --name myClusterA
           
     - name: SonarQube Installation
       run: |
