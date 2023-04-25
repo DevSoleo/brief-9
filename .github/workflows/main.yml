@@ -15,4 +15,4 @@ jobs:
         echo -e "${{ secrets.KUBECONFIG }}" > ~/.kube/config
           
     - name: SonarQube Installation
-      run: kubectl get pods
+      run: cat ~/.kube/config
