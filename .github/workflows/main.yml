@@ -2,6 +2,9 @@ name: 'Deploy SonarQube'
 on: 
   workflow_dispatch:
 
+env:
+  RESOURCE_GROUP_NAME: myResourceGroupA1
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -13,16 +16,9 @@ jobs:
       run: |
         mkdir ~/.kube/
         echo -e "${{ secrets.KUBECONFIG }}" > ~/.kube/config
-          
-    - name: SonarQube Installation
-      run: |
-        SONARQUBE_NODE=$(kubectl get nodes | awk '{print $1}' |  awk 'NR == 2 { print ; exit ;}')
-        kubectl taint nodes $SONARQUBE_NODE sonarqube=true:NoSchedule
-        kubectl label node $SONARQUBE_NODE sonarqube=true
-        helm repo add sonarqube https://SonarSource.github.io/helm-chart-sonarqube
-        helm repo update
-        kubectl create namespace sonarqube
-        helm upgrade --install -n sonarqube sonarqube sonarqube/sonarqube
-        helm upgrade -f ./values.yaml --install -n sonarqube sonarqube sonarqube/sonarqube
         
-
+    - name: Création de l'infrastructure
+      run: |
+        az group create --name ${{ env.RESOURCE_GROUP_NAME }} --location westeurope
+        az aks create -n myCluster -g ${{ env.RESOURCE_GROUP_NAME }}
+        az aks get-credentials --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name myCluster
