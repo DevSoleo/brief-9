@@ -91,7 +91,7 @@ jobs:
       - name: Connexion au cluster kubernetes
         run: |
           mkdir ~/.kube/
-          echo -e "${{ secrets.KUBECONFIG_PROD }}" > ~/.kube/config
+          echo -e "${{ secrets.KUBECONFIG_TEST }}" > ~/.kube/config
           
       - name: Connexion au cluster kubernetes
         run: |
