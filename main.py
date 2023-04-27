@@ -8,3 +8,8 @@ target =+ num # Noncompliant; target = 3
       
 jwt.decode(token, verify = False)  # Noncompliant
 jwt.decode(token, key, options={"verify_signature": False})  # Noncompliant
+
+class MyClass(object):
+      def __init__(self):
+        self.message = 'Hello'
+        return self  # Noncompliant
