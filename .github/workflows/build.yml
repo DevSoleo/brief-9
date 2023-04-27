@@ -79,3 +79,24 @@ jobs:
           push: true
           tags: ghcr.io/devsoleo/brief-9-test:latest
           labels: ${{ steps.meta.outputs.labels }}
+          
+  deploy-infrastructure:
+    needs: build-image
+    name: Déploiement de l'infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Connexion au cluster kubernetes
+        run: |
+          mkdir ~/.kube/
+          echo -e "${{ secrets.KUBECONFIG_PROD }}" > ~/.kube/config
+          
+      - name: Connexion au cluster kubernetes
+        run: |
+          ls -la
+          kubectl apply -f ./k8s/infrastructure.yml
+          kubectl apply -f ./k8s/autoscaler.yml
+          kubectl apply -f ./k8s/ingress.yml
+
