@@ -98,5 +98,3 @@ jobs:
           ls -la
           kubectl apply -f ./k8s/infrastructure.yml
           kubectl apply -f ./k8s/autoscaler.yml
-          kubectl apply -f ./k8s/ingress.yml
-
