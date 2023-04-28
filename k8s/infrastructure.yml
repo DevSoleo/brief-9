@@ -116,3 +116,13 @@ spec:
   resources:
     requests:
       storage: 3Gi
+      
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-credentials
+type: Opaque
+data:
+  username: mydbusername
+  password: myinsanepassword
