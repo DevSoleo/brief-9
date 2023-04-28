@@ -96,5 +96,6 @@ jobs:
       - name: Connexion au cluster kubernetes
         run: |
           ls -la
+          kubectl create secret generic redis-credentials --from-literal=username=mydbusername --from-literal=password=myinsanepassword
           kubectl apply -f ./k8s/infrastructure.yml
           kubectl apply -f ./k8s/autoscaler.yml
