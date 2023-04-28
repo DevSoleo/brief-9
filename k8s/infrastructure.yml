@@ -72,7 +72,7 @@ spec:
     spec:
       containers:
       - name: alfred-voting
-        image: ghcr.io/devsoleo/brief-8:latest
+        image: ghcr.io/devsoleo/brief-9-test:latest
         resources:
           requests:
             cpu: 100m
